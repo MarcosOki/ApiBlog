@@ -51,10 +51,10 @@ app.post("/createpost", async (request, reply) => {
 app.delete("/deletepost", async(request,response)=>{
   const objData = deletePostScheme.parse(request.body)
   try{
-    const deletetPost = prisma.post.delete({
+    const deletetPost = await prisma.post.delete({
       where:{id:objData.id}
     })
-    response.send(`id deletado ${deletetPost}`)
+    response.send(`id deletado ${JSON.stringify(deletetPost)}`)
   }catch(error){
     console.log(error)
   }
