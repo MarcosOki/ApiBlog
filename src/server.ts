@@ -4,11 +4,14 @@ import { number, z } from "zod";
 import { createPostSchema } from "./Schemas/createPostSchema";
 import { PrismaClient } from "@prisma/client";
 import {fastifyCors} from "@fastify/cors"
+import { deletePostScheme } from "./Schemas/deletePostScheme";
+import { stringify } from "querystring";
 
 app.register(fastifyCors,{
   origin:"*",
   methods:['GET','POST','PUT', 'DELETE']
 })
+
 
 const prisma = new PrismaClient();
 
@@ -44,6 +47,13 @@ app.post("/createpost", async (request, reply) => {
     console.error(error);
   }
 });
+
+app.delete("/deletepost", async(request,response)=>{
+  const objData = deletePostScheme.parse(request.body)
+  const deletPost = prisma.post.delete({
+    where:{id:objData.id}
+  })
+})
 
 app.get("/page/:page", async ( request,reply)=>{
   const {page} = request.params as Parametros
