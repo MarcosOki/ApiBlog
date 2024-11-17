@@ -14,31 +14,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  idUser    String   @id @default(uuid())
-  username  String   @unique
-  bio       String?
-  createdAt DateTime @default(now())
-  cargoUser String
-  posts     Post[]
 
-  @@map("Users")
-}
-
-model Category {
-  idCategory   String @id @default(uuid())
-  nameCategory String
-  posts        Post[]
-
-  @@map("categorias")
-}
 
 model Post {
   id_post     String    @id @default(uuid())
   title       String
   text        String
-  author      User?     @relation(fields: [idUser], references: [idUser])
-  idUser      String?
-  categoria   Category? @relation(fields: [categoriaId], references: [idCategory])
-  categoriaId String
+  author      String
 }
