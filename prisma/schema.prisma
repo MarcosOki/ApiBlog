@@ -17,7 +17,7 @@ datasource db {
 
 
 model Post {
-  id_post     String    @id @default(uuid())
+  id_post     Int    @id @default(autoincrement())
   title       String
   text        String
   author      String
