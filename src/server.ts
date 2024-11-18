@@ -13,6 +13,6 @@ app.get("/", async () => {
 })
 app.register(routes);
 
-app.listen({ port: 3000}, ()=> {
-  console.log(`HTTP server `);
+app.listen({ host: "0.0.0.0", port: process.env.PORT ? Number(process.env.PORT): 3333}, (err,adress)=> {
+  console.log(`HTTP server `, adress);
 });
